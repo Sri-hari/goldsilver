@@ -28,4 +28,4 @@ jobs:
     - name: Run Python script
       env:
         METALS_API_KEY: ${{ secrets.METALS_API_KEY }}
-      run: python fetch_and_visualize_metal_prices.py
+      run: python main.py
