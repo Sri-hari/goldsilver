@@ -1,0 +1,31 @@
+name: Fetch and Visualize Metal Prices
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * *'  # Runs daily at 12:00 UTC
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Python script
+      env:
+        METALS_API_KEY: ${{ secrets.METALS_API_KEY }}
+      run: python fetch_and_visualize_metal_prices.py
